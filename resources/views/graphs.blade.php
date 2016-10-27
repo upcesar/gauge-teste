@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>Bootstrap 101 Template</title>
+        <title>Gauge Test Graph</title>
 
         <!-- Bootstrap -->
         <link href="css/app.css" rel="stylesheet">
@@ -20,22 +20,68 @@
     <body>
         <h1>Hello, world!</h1>
 
-        <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Action <span class="caret"></span>
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Dropdown
+                <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                 <li><a href="#">Action</a></li>
                 <li><a href="#">Another action</a></li>
                 <li><a href="#">Something else here</a></li>
                 <li role="separator" class="divider"></li>
                 <li><a href="#">Separated link</a></li>
             </ul>
-        </div> 
+        </div>
+
+        <div id="placeholder" class="demo-container" style="width: 100%; height: 400px;">
+
+        </div>
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/jquery.min.js"></script>
+
         <script src="js/bootstrap.min.js"></script>
+        <script src="js/flot/jquery.flot.js"></script>
+        <script src="js/flot/jquery.flot.pie.js"></script>
+        <script>
+            var data = [],
+                    series = Math.floor(Math.random() * 6) + 3;
+
+            for (var i = 0; i < series; i++) {
+                data[i] = {
+                    label: "Series" + (i + 1),
+                    data: Math.floor(Math.random() * 100) + 1
+                }
+            }
+
+            function labelFormatter(label, series) {
+                return "<div style='font-size:8pt; text-align:center; padding:2px; color:white;'>" + label + "<br/>" + Math.round(series.percent) + "%</div>";
+            }
+
+            $.plot('#placeholder', data, {
+                series: {
+                    pie: {
+                        show: true,
+                        radius: 3 / 4,
+                        label: {
+                            show: true,
+                            radius: 3 / 4,
+                            formatter: labelFormatter,
+                            background: {
+                                opacity: 0.5,
+                                color: '#000'
+                            }
+                        }
+                    }
+                },
+                legend: {
+                    show: false
+                }
+            });
+        </script>
+
+
+
     </body>
 </html>
