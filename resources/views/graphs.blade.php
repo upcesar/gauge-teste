@@ -34,7 +34,7 @@
             </ul>
         </div>
 
-        <div id="placeholder" class="demo-container" style="width: 100%; height: 400px;">
+        <div id="placeholder" class="demo-container" style="width: 100%; height: 600px;">
 
         </div>
 
@@ -43,43 +43,9 @@
 
         <script src="js/bootstrap.min.js"></script>
         <script src="js/flot/jquery.flot.js"></script>
+        <script src="js/flot/jquery.flot.resize.js"></script>
         <script src="js/flot/jquery.flot.pie.js"></script>
-        <script>
-            var data = [],
-                    series = Math.floor(Math.random() * 6) + 3;
-
-            for (var i = 0; i < series; i++) {
-                data[i] = {
-                    label: "Series" + (i + 1),
-                    data: Math.floor(Math.random() * 100) + 1
-                }
-            }
-
-            function labelFormatter(label, series) {
-                return "<div style='font-size:8pt; text-align:center; padding:2px; color:white;'>" + label + "<br/>" + Math.round(series.percent) + "%</div>";
-            }
-
-            $.plot('#placeholder', data, {
-                series: {
-                    pie: {
-                        show: true,
-                        radius: 3 / 4,
-                        label: {
-                            show: true,
-                            radius: 3 / 4,
-                            formatter: labelFormatter,
-                            background: {
-                                opacity: 0.5,
-                                color: '#000'
-                            }
-                        }
-                    }
-                },
-                legend: {
-                    show: false
-                }
-            });
-        </script>
+        <script src="js/graphData.js"></script>
 
 
 
