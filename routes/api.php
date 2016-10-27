@@ -18,7 +18,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:api');
 
 /**
- * 
+ * Load JSON file
  */
 Route::get('/load-json/{filename}', function(String $filename) {
 
@@ -30,6 +30,31 @@ Route::get('/load-json/{filename}', function(String $filename) {
     } else {
         App::abort(404, 'Record not found');
     }
-    
+
     return $records;
+});
+
+Route::get('/interactions/list', function() {
+
+    //$users = App\model\Users::with('interactions')->get();
+    $users = App\model\Users::with('interactions')
+            ->get()
+            ->sortByDesc(function($user) {
+                    return $user->interactions->count();
+                });
+    
+    $output = array();
+
+    foreach ($users as $u) {
+        
+        $o = new stdClass();
+        
+        $o->id = $u->id;
+        $o->name = $u->title.' '.$u->full_name;
+        $o->num_interaction = $u->interactions->count();
+        
+        $output[] = $o;
+    }
+    
+    return json_encode($output);
 });
